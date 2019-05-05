@@ -1,0 +1,35 @@
+<resources>
+
+
+    <string name="menu_home">Home</string>
+    <string name="menu_bookmark">Bookmarks</string>
+    <string name="menu_preference">Preferences</string>
+    <string name="menu_feed">Article Feed</string>
+    <string name="menu_search">Search</string>
+
+    <string name="app_name">Mobile Magazine</string>
+    <string name="appHelp">This is the help screen for CoffeeMate</string>
+    <string name="appHelpExtra">Basically\, if you need help on using this app, you probably shouldn\'t be using it</string>
+    <string name="appDisplayName">Mobile Magazine</string>
+    <string name="appDesc">CoffeeMate provides the user with a quick and easy way to manage a list of coffees and your favourite coffees.</string>
+    <string name="appMoreInfo">For more information about CoffeeMate or to provide feedback please visit our website.</string>
+    <string name="appAbout">About CoffeeMate</string>
+    <string name="appWebsite">ddrohan.github.io</string>
+    <string name="developer">Developed by Davey Drohan</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="messageLoading">Downloading Articles...</string>
+    <string name="emptyMessageLbl">No bookmarks found !</string>
+    <string name="searchBookmarkLbl">Search Bookmarks</string>
+
+    <string-array name="bookmarkCatogery">
+        <item>Political</item>
+        <item>Technology</item>
+        <item>Sports</item>
+        <item>Environment</item>
+        <item>Others</item>
+    </string-array>
+
+</resources>

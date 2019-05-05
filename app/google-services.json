@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "10582661267",
+    "firebase_url": "https://magazine-10d31.firebaseio.com",
+    "project_id": "magazine-10d31",
+    "storage_bucket": "magazine-10d31.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10582661267:android:32202bb74f3f03b1",
+        "android_client_info": {
+          "package_name": "com.wit.magazine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10582661267-sj3bqsb7bkehmo2dldq272f1a1o0lo94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wit.magazine",
+            "certificate_hash": "0d02c1025a47342e034f49f854b47c598612e73a"
+          }
+        },
+        {
+          "client_id": "10582661267-gpoiidbq6co8mme4bj8131l134c4v9ga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4TE5dJwowsOAngwX19Azr-vYw-FMWa7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "10582661267-gpoiidbq6co8mme4bj8131l134c4v9ga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

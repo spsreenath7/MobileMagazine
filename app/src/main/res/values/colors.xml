@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#FC4747</color>
+    <color name="colorPrimaryDark" tools:ignore="MissingDefaultResource">#FF4040</color>
+    <color name="colorAccent">#FF4040</color>
+
+    <color name="colorFontWhite">#FFFFFF</color>
+    <color name="colorFontOffWhite">#F7F7F7</color>
+    <color name="colorFontBlack">#000000</color>
+    <color name="colorMultiDelete">#a6c4e6</color>
+    <color name="colorFontRed">#fe0000</color>
+    <color name="splash">#21ade9</color>
+    <color name="colorCardShadow">#1616c8</color>
+</resources>
