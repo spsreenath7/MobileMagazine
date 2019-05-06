@@ -9,31 +9,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.wit.magazine.R;
 import com.wit.magazine.activities.HomeActivity;
-import com.wit.magazine.adapters.BookmarkListAdpater;
 import com.wit.magazine.adapters.FriendsAdapter;
-import com.wit.magazine.models.Bookmark;
 import com.wit.magazine.models.UserProfile;
 
 import java.util.ArrayList;
@@ -86,14 +75,9 @@ public class FindfriendsFragment extends Fragment implements View.OnClickListene
                 Log.v("magazine","Search text in onQueryTextChange : "+dataSnapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     UserProfile user = postSnapshot.getValue(UserProfile.class);
-                    Log.v("magazine","Search text in onQueryTextChange : "+postSnapshot.getValue());
-                    Log.v("magazine","Search text in onQueryTextChange : "+user.toString());
                     userList.add(user);
                 }
-//                BookmarkListAdpater trackListAdapter = new BookmarkListAdpater(activity, BookmarkFragment.this, bookmarkList);
-//                listView.setAdapter(trackListAdapter);
-                Log.v("magazine","Search text in onQueryUserList : "+String.valueOf(userList.size()));
-                FriendsAdapter friendsAdapter = new FriendsAdapter(getContext(), userList, FindfriendsFragment.this);
+                FriendsAdapter friendsAdapter = new FriendsAdapter(getContext(), userList,app.friendsSet, FindfriendsFragment.this);
                 mResultList.setAdapter(friendsAdapter);
                 activity.hideLoader();
             }
@@ -102,6 +86,9 @@ public class FindfriendsFragment extends Fragment implements View.OnClickListene
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+
+    private void configureAdapter(List<UserProfile> userList) {
     }
 
     @Nullable
@@ -122,7 +109,7 @@ public class FindfriendsFragment extends Fragment implements View.OnClickListene
         mResultList.setLayoutManager(new LinearLayoutManager(this.activity));
 
         Log.v("magazine","Search text in onQueryUserList : "+String.valueOf(userList.size()));
-        FriendsAdapter friendsAdapter = new FriendsAdapter(this.activity, userList,this);
+        FriendsAdapter friendsAdapter = new FriendsAdapter(this.activity, userList, app.friendsSet, this);
         mResultList.setAdapter(friendsAdapter);
 //        mResultList.setAdapter(firebaseRecyclerAdapter);
 

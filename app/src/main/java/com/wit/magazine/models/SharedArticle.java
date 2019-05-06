@@ -6,6 +6,7 @@ public class SharedArticle {
     String caption;
     String title;
     String url;
+    String urlToImage;
     String source;
     String userid;
     String username;
@@ -15,11 +16,12 @@ public class SharedArticle {
 
     }
 
-    public SharedArticle(String shareid,String title,String caption, String url, String source, String userid, String username, long sharedDate){
+    public SharedArticle(String shareid,String title,String caption, String url,String urlToImage, String source, String userid, String username, long sharedDate){
         this.shareid=shareid;
         this.title=title;
         this.caption =caption;
         this.url=url;
+        this.urlToImage=urlToImage;
         this.source=source;
         this.userid=userid;
         this.username=username;
@@ -88,5 +90,13 @@ public class SharedArticle {
 
     public void setCaption(String caption) {
         this.caption = caption;
+    }
+
+    public String getUrlToImage() {
+        return urlToImage;
+    }
+
+    public void setUrlToImage(String urlToImage) {
+        this.urlToImage = urlToImage;
     }
 }

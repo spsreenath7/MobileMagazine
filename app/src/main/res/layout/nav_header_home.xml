@@ -12,7 +12,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <!-- https://github.com/vinc3m1/RoundedImageView -->
     <ImageView
         android:id="@+id/newaAPIlogo"
         android:layout_width="wrap_content"
@@ -20,12 +19,20 @@
         android:paddingTop="5dp"
         android:scaleType="fitCenter"
         android:src="@drawable/newslogo" />
+
     <TextView
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appWebsite" />
 
 
 </LinearLayout>

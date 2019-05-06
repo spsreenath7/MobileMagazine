@@ -99,10 +99,7 @@ public class TrendingFragement extends Fragment implements View.OnClickListener,
         activityInfo.putString("Source" , article.getSource().getName());
         activityInfo.putString("from" ,"artcilepage" );
         activityInfo.putString("url" , article.getUrl());
-//        holder.textViewTitle.setText(article.getTitle());
-//        holder.textViewDate.setText(article.getPublishedAt());
-//        holder.textViewPrice.setText("$"+String.valueOf(article.getPrice()));
-//        holder.textAuthor.setText(String.valueOf(article.getAuthor()));
+        activityInfo.putString("imageURL", article.getUrlToImage());
 
         Fragment fragment = ArticlePageFragment.newInstance(activityInfo);
         getActivity().setTitle(article.getSource().getName());

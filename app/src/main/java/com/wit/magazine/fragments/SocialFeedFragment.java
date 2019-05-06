@@ -27,6 +27,8 @@ import com.wit.magazine.models.Article;
 import com.wit.magazine.models.SharedArticle;
 import com.wit.magazine.models.UserProfile;
 
+import static com.wit.magazine.activities.HomeActivity.app;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,11 +72,12 @@ public class SocialFeedFragment extends Fragment implements View.OnClickListener
                 Log.v("magazine","Search text in onQueryTextChange : "+dataSnapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     SharedArticle usershare = postSnapshot.getValue(SharedArticle.class);
-                    sharedList.add(usershare);
+                    if(app.friendsSet.contains(usershare.getUserid())) {
+                        sharedList.add(usershare);
+                    }
                 }
-//                BookmarkListAdpater trackListAdapter = new BookmarkListAdpater(activity, BookmarkFragment.this, bookmarkList);
-//                listView.setAdapter(trackListAdapter);
                 Log.v("magazine","Search text in onQueryUserList : "+String.valueOf(sharedList.size()));
+
                 SocialFeedAdapter socialFeedAdapter = new SocialFeedAdapter(getContext(), sharedList, SocialFeedFragment.this);
                 mResultList.setAdapter(socialFeedAdapter);
                 activity.hideLoader();

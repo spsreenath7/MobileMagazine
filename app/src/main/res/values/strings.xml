@@ -5,7 +5,7 @@
     <string name="menu_bookmark">Bookmarks</string>
     <string name="menu_preference">Preferences</string>
     <string name="menu_feed">Article Feed</string>
-    <string name="menu_search">Search</string>
+    <string name="menu_search">Connect Friends</string>
 
     <string name="app_name">Mobile Magazine</string>
     <string name="appHelp">This is the help screen for CoffeeMate</string>
@@ -14,8 +14,8 @@
     <string name="appDesc">CoffeeMate provides the user with a quick and easy way to manage a list of coffees and your favourite coffees.</string>
     <string name="appMoreInfo">For more information about CoffeeMate or to provide feedback please visit our website.</string>
     <string name="appAbout">About CoffeeMate</string>
-    <string name="appWebsite">ddrohan.github.io</string>
-    <string name="developer">Developed by Davey Drohan</string>
+    <string name="appWebsite">mobile.magazine.com</string>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

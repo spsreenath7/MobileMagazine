@@ -1,6 +1,7 @@
 package com.wit.magazine.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import java.util.List;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.RequestOptions;
 import com.wit.magazine.R;
 import com.wit.magazine.models.Article;
 //import ie.cm.models.Product;
@@ -67,11 +69,17 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
 
         holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(R.drawable.youtube_logo));
 
-        RequestManager requestManager = Glide.with(mCtx);
-// Create request builder and load image.
-        RequestBuilder requestBuilder = requestManager.load(article.getUrlToImage());
-// Show image into target imageview.
-        requestBuilder.into(holder.imageView);
+//        RequestManager requestManager = Glide.with(mCtx);
+//// Create request builder and load image.
+//        RequestBuilder requestBuilder = requestManager.load(article.getUrlToImage());
+//// Show image into target imageview.
+//        requestBuilder.into(holder.imageView);
+        Glide.with(mCtx)
+                .load(article.getUrlToImage())
+                .apply(new RequestOptions().placeholder(R.drawable.loginbgimg).error(R.drawable.newslogo))
+//                .error(R.drawable.youtube_logo)
+                .into(holder.imageView);
+
         holder.relativeLayout.setTag(article);
 
         holder.relativeLayout.setOnClickListener(this.onClickListener);

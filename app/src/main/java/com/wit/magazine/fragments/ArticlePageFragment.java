@@ -144,18 +144,20 @@ public class ArticlePageFragment extends Fragment implements AdapterView.OnItemS
 
     public void share(String caption) {
 
-        String id, source, title, url, userid, username;
+        String id, source, title, url, userid, username, urlToImage;
         long sharedDate;
 
         id  = databaseShareReference.push().getKey();
         source = getArguments().getString("Source");
         title = getArguments().getString("Title");
         url = getArguments().getString("url");
+        urlToImage = getArguments().getString("urlToImage");
+
         userid = app.fireBaseUser;
         username = app.fireBaseUserName;
         sharedDate = System.currentTimeMillis();
-//public SharedArticle(String shareid,String title,String caption, String url, String source, String user, long sharedDate){
-        SharedArticle sharedArticle = new SharedArticle(id, title, caption, url, source, userid, username, sharedDate);
+
+        SharedArticle sharedArticle = new SharedArticle(id, title, caption, url,urlToImage, source, userid, username, sharedDate);
         databaseShareReference.child(id).setValue(sharedArticle);
         Toast.makeText(getActivity(),"Article shared sucessfully !! ",Toast.LENGTH_LONG).show();
     }

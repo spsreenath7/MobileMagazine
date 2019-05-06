@@ -9,7 +9,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Application;
@@ -27,6 +29,7 @@ public class MagazineApp extends Application
     public List <Article>  articleListTab3 = new ArrayList<Article>();
     public String fireBaseUser;
     public String fireBaseUserName;
+    public Set<String> friendsSet = new HashSet<>();
     public ArticleService articleService;
     public String articleServiceURL = "https://newsapi.org/v2/";
 

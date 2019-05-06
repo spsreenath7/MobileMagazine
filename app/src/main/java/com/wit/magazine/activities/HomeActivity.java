@@ -13,12 +13,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wit.magazine.R;
 import com.wit.magazine.fragments.ArticlePageFragment;
 import com.wit.magazine.fragments.ArticlesFragment;
@@ -30,6 +37,7 @@ import com.wit.magazine.fragments.ShareDialogFragment;
 import com.wit.magazine.fragments.SocialFeedFragment;
 import com.wit.magazine.fragments.WalletFragment;
 import com.wit.magazine.main.MagazineApp;
+import com.wit.magazine.models.UserProfile;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         ArticlePageFragment.ArticlePageInteractionListener, ShareDialogFragment.ShareDialogListener {
@@ -40,6 +48,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthStateListener;
+    DatabaseReference dbReference;
 
     FragmentTransaction ft;
 
@@ -79,6 +88,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        TextView userName = navigationView.getHeaderView(0).findViewById(R.id.username);
+        userName.setText(app.fireBaseUserName);
+
+        TextView userMail = navigationView.getHeaderView(0).findViewById(R.id.email);
+        userMail.setText(mAuth.getCurrentUser().getEmail());
+
         ft = getSupportFragmentManager().beginTransaction();
 
         ArticlesFragment fragment = ArticlesFragment.newInstance();
@@ -88,6 +103,22 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         //this.setupCoffees();
         createLoader();
+        dbReference = FirebaseDatabase.getInstance().getReference("FriendLists").child(app.fireBaseUser);
+        showLoader("please wait");
+        dbReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String friend = postSnapshot.getValue(String.class);
+                    app.friendsSet.add(friend);
+                }
+                hideLoader();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         this.setTitle("Articles");
     }
 
