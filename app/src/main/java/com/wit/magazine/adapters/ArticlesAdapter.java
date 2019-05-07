@@ -39,7 +39,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
 
     //getting the context and product list with constructor
     public ArticlesAdapter(Context mCtx, List<Article> articleList, View.OnClickListener onClickListener) {
-        Log.v("coffeemate","ARTICLES SIZE : "+String.valueOf(articleList.size()) );
+
         this.mCtx = mCtx;
         this.articleList = articleList;
         this.onClickListener = onClickListener;
@@ -57,7 +57,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
     public void onBindViewHolder(ArticleViewHolder holder, int position) {
         //getting the product of the specified position
         Article article = articleList.get(position);
-        Log.v("coffeemate","ARTICLE : "+String.valueOf(position) );
 
         //binding the data with the viewholder views
         holder.textViewTitle.setText(article.getTitle());
@@ -69,11 +68,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
 
         holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(R.drawable.youtube_logo));
 
-//        RequestManager requestManager = Glide.with(mCtx);
-//// Create request builder and load image.
-//        RequestBuilder requestBuilder = requestManager.load(article.getUrlToImage());
-//// Show image into target imageview.
-//        requestBuilder.into(holder.imageView);
         Glide.with(mCtx)
                 .load(article.getUrlToImage())
                 .apply(new RequestOptions().placeholder(R.drawable.loginbgimg).error(R.drawable.newslogo))

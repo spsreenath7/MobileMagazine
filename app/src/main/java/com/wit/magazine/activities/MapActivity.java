@@ -214,19 +214,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             lat =currentLocation.getLatitude();
                             lon =currentLocation.getLatitude();
                             List<Address> list = new ArrayList<>();
+
                             try {
                                 list = geocoder.getFromLocation(lat, lon, 3);
 
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Address address = list.get(0);
-                            Log.d(TAG, "geoLocate: found a location: " + address.toString());
+                            if(list.size() > 0) {
+                                Address address = list.get(0);
+                                Log.d(TAG, "geoLocate: found a location: " + address.toString());
 //                            countryCode =address.getCountryCode().toLowerCase();
 //                            countryName =address.getCountryName();
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM,
-                                    "Country: "+address.getCountryName());
+                                moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+                                        DEFAULT_ZOOM,
+                                        "Country: " + address.getCountryName());
+                            }
 
                         }else{
                             Log.d(TAG, "onComplete: current location is null");

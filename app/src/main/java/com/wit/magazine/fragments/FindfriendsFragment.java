@@ -148,9 +148,7 @@ public class FindfriendsFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if (v.getTag() instanceof String) {
-//            onCoffeeDelete ((Coffee) view.getTag());
-//            bookmarkList.remove((Bookmark) v.getTag());
-//            UserProfile user=(UserProfile) v.getTag();
+
             String followedUserid = (String) v.getTag();
 //            bookmarkListAdpater.user.remove(user);
 //            bookmarkListAdpater.notifyDataSetChanged();

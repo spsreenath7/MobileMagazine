@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 
 import com.wit.magazine.R;
 import com.wit.magazine.models.Bookmark;
-//import com.wit.magazine.models.Coffee;
+
 
 public class BookmarkItem {
 

@@ -5,9 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -27,7 +32,7 @@ import com.wit.magazine.models.Bookmark;
 
 import static com.wit.magazine.activities.HomeActivity.app;
 
-public class BookmarkFragment extends Fragment implements AdapterView.OnItemClickListener,  View.OnClickListener {
+public class BookmarkFragment extends Fragment implements AdapterView.OnItemClickListener,  View.OnClickListener, AbsListView.MultiChoiceModeListener{
 
     HomeActivity activity;
     public View v;
@@ -38,6 +43,8 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
     public BookmarkListAdpater bookmarkListAdpater;
     public DatabaseReference databaseReference;
     BookmarkFilter bookmarkFilter;
+
+    ValueEventListener valueEventListener;
 
     public BookmarkFragment(){
 
@@ -61,7 +68,7 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
         databaseReference = FirebaseDatabase.getInstance().getReference("Bookmarks")
                 .child(app.fireBaseUser);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 bookmarkList.clear();
@@ -78,7 +85,9 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
-        });
+        };
+
+        databaseReference.addValueEventListener(valueEventListener);
     }
 
     @Override
@@ -107,13 +116,13 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
         bookmarkFilter = new BookmarkFilter(bookmarkList,"all",bookmarkListAdpater);
         listView.setAdapter (bookmarkListAdpater);
         listView.setOnItemClickListener(this);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getTag() instanceof Bookmark) {
-//            onCoffeeDelete ((Coffee) view.getTag());
-//            bookmarkList.remove((Bookmark) v.getTag());
             Bookmark bookmark=(Bookmark) v.getTag();
             bookmarkListAdpater.bookmarkList.remove(bookmark);
             bookmarkListAdpater.notifyDataSetChanged();
@@ -160,5 +169,54 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
         }
 
         return null;
+    }
+
+    @Override
+    public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+
+    }
+
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        MenuInflater inflater = mode.getMenuInflater();
+        inflater.inflate(R.menu.delete_list_context, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        return false;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.menu_item_bookmark_remove:
+                deleteBookmarks(mode);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void deleteBookmarks(ActionMode mode) {
+        activity.showLoader("Removing bookmarks");
+        for (int i = bookmarkListAdpater.getCount() -1 ; i >= 0; i--)
+        {
+            if (listView.isItemChecked(i)) {
+                Bookmark bookmark =bookmarkListAdpater.getItem(i);
+                bookmarkList.remove(bookmark);
+                databaseReference.child(bookmark.getBookmarkId()).removeValue();
+
+            }
+        }
+        bookmarkListAdpater.notifyDataSetChanged(); // refresh adapter
+        mode.finish();
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
+
     }
 }

@@ -52,8 +52,6 @@ public class TrendingFragement extends Fragment implements View.OnClickListener,
     {
         super.onAttach(context);
         this.activity = (HomeActivity) context;
-
-//        NewsAPI.attachDialog(activity.loader);
     }
 
     @Override
@@ -65,15 +63,14 @@ public class TrendingFragement extends Fragment implements View.OnClickListener,
 
     public void getAll() {
         activity.showLoader("Downloading Articles...");
-        callRetrieve = app.articleService.getAllTrending(ArticleService.NEWSAPI_KEY,"ie", 5);
+        callRetrieve = app.articleService.getAllTrending(ArticleService.NEWSAPI_KEY,app.userPreference.getCountrycode(), app.userPreference.getArticlecount());
+        callRetrieve.request().url();
         callRetrieve.enqueue(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
 
         View v = inflater.inflate(R.layout.fragment_trending, container, false);
         getActivity().setTitle("Recommedations");
@@ -82,19 +79,14 @@ public class TrendingFragement extends Fragment implements View.OnClickListener,
         recyclerView.setLayoutManager(new LinearLayoutManager(this.activity));
 
         updateView(app.articleList);
-
-
         return v;
     }
-
-
 
     @Override
     public void onClick(View view) {
         Bundle activityInfo = new Bundle(); // Creates a new Bundle object
         Article article = (Article) view.getTag();
 
-//        activityInfo.putStringArray();
         activityInfo.putString("Title" , article.getTitle());
         activityInfo.putString("Source" , article.getSource().getName());
         activityInfo.putString("from" ,"artcilepage" );
@@ -121,8 +113,6 @@ public class TrendingFragement extends Fragment implements View.OnClickListener,
 
     public void updateView(List<Article> articleList) {
         adapter = new ArticlesAdapter(this.activity, articleList, this);
-//
-//        //setting adapter to recyclerview
 
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

@@ -8,12 +8,12 @@
     <string name="menu_search">Connect Friends</string>
 
     <string name="app_name">Mobile Magazine</string>
-    <string name="appHelp">This is the help screen for CoffeeMate</string>
+    <string name="appHelp">Text about help</string>
     <string name="appHelpExtra">Basically\, if you need help on using this app, you probably shouldn\'t be using it</string>
     <string name="appDisplayName">Mobile Magazine</string>
-    <string name="appDesc">CoffeeMate provides the user with a quick and easy way to manage a list of coffees and your favourite coffees.</string>
-    <string name="appMoreInfo">For more information about CoffeeMate or to provide feedback please visit our website.</string>
-    <string name="appAbout">About CoffeeMate</string>
+    <string name="appDesc">Mobile magazine allows users to read, bookmark and share articles from different news agencies under a single app.</string>
+    <string name="appMoreInfo">Connect with you friends and read news colloberately</string>
+    <string name="appAbout">About Mobile magazine</string>
     <string name="appWebsite">mobile.magazine.com</string>
 
 
@@ -26,6 +26,7 @@
 
     <string name="google_maps_key">AIzaSyCvihKEhbwuEyVpN4bin_nl82YPeUEesOE</string>
     <string-array name="bookmarkCatogery">
+        <item>None</item>
         <item>Political</item>
         <item>Technology</item>
         <item>Sports</item>

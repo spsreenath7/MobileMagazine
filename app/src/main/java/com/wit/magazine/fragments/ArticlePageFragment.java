@@ -87,7 +87,6 @@ public class ArticlePageFragment extends Fragment implements AdapterView.OnItemS
         ((Button)view.findViewById(R.id.buttonPurchase)).setClickable(false);
 
         Fragment fragment = ArticleWebFragment.newInstance(activityInfo);
-//        getActivity().setTitle(R.string.editCoffeeLbl);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.articleContentFrame, fragment)
                 .addToBackStack(null)
@@ -117,7 +116,6 @@ public class ArticlePageFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        //  CoffeeApi.attachListener(this);
         if (context instanceof ArticlePageInteractionListener) {
             mListener = (ArticlePageInteractionListener) context;
         } else {
@@ -130,7 +128,6 @@ public class ArticlePageFragment extends Fragment implements AdapterView.OnItemS
     public void onDetach() {
         super.onDetach();
         mListener = null;
-        //   CoffeeApi.detachListener();
     }
 
     @Override

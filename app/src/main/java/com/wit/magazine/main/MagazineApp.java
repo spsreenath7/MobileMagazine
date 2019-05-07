@@ -1,9 +1,7 @@
 package com.wit.magazine.main;
 
 import com.wit.magazine.api.ArticleService;
-//import ie.cm.api.CoffeeService;
 import com.wit.magazine.models.Article;
-//import ie.cm.models.Coffee;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

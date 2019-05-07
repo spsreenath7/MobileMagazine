@@ -27,7 +27,7 @@ public class SocialFeedAdapter extends RecyclerView.Adapter<SocialFeedAdapter.Sh
     private View.OnClickListener onClickListener;
 
     public SocialFeedAdapter(Context mCtx, List<SharedArticle> shareList, View.OnClickListener onClickListener) {
-        Log.v("coffeemate","ARTICLES SIZE : "+String.valueOf(shareList.size()) );
+
         this.mCtx = mCtx;
         this.shareList = shareList;
         this.onClickListener = onClickListener;

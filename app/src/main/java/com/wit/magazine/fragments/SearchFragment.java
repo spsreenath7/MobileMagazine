@@ -1,5 +1,6 @@
 package com.wit.magazine.fragments;
 
+import android.app.DownloadManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,13 +11,21 @@ import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.wit.magazine.R;
 import com.wit.magazine.adapters.BookmarkFilter;
+import com.wit.magazine.adapters.BookmarkListAdpater;
+import com.wit.magazine.models.Bookmark;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFragment extends BookmarkFragment implements AdapterView.OnItemSelectedListener{
 
     String selected;
     SearchView searchView;
+    Query catogeryQuery;
 
 
     public SearchFragment() {
@@ -31,6 +40,7 @@ public class SearchFragment extends BookmarkFragment implements AdapterView.OnIt
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -64,14 +74,40 @@ public class SearchFragment extends BookmarkFragment implements AdapterView.OnIt
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.v("magazine","Search text in onQueryTextSubmit : "+query);
-                bookmarkFilter.filter(query);
+                List<Bookmark> bookmarkListFiltered;
+                String bookmarkTitle;
+
+                String prefixString = query.toString().toLowerCase();
+                bookmarkListFiltered = new ArrayList<>();
+                for (Bookmark bookmark : bookmarkList) {
+                    bookmarkTitle = bookmark.getTitle().toLowerCase();
+                    if (bookmarkTitle.contains(prefixString)) {
+                            bookmarkListFiltered.add(bookmark);
+
+                    }
+                }
+                BookmarkListAdpater trackListAdapter = new BookmarkListAdpater(activity, SearchFragment.this, bookmarkListFiltered);
+                listView.setAdapter(trackListAdapter);
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.v("magazine","Search text in onQueryTextChange : "+newText);
-                bookmarkFilter.filter(newText);
+            public boolean onQueryTextChange(String newText)  {
+                Log.v("magazine","Search text in onQueryTextSubmit : "+newText);
+                List<Bookmark> bookmarkListFiltered;
+                String bookmarkTitle;
+
+                String prefixString = newText.toString().toLowerCase();
+                bookmarkListFiltered = new ArrayList<>();
+                for (Bookmark bookmark : bookmarkList) {
+                    bookmarkTitle = bookmark.getTitle().toLowerCase();
+                    if (bookmarkTitle.contains(prefixString)) {
+                        bookmarkListFiltered.add(bookmark);
+
+                    }
+                }
+                BookmarkListAdpater trackListAdapter = new BookmarkListAdpater(activity, SearchFragment.this, bookmarkListFiltered);
+                listView.setAdapter(trackListAdapter);
                 return false;
             }
         });
@@ -82,7 +118,17 @@ public class SearchFragment extends BookmarkFragment implements AdapterView.OnIt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         selected = parent.getItemAtPosition(position).toString();
-//        checkSelected(selected);
+        Log.v("magazine", "Search text in selectedChange : " + selected);
+        if (!"None".equals(selected)) {
+            List<Bookmark> filteredBookMarkList = new ArrayList<>();
+            for (Bookmark bookmark : bookmarkList) {
+                if (selected.equals(bookmark.getCatogery())) {
+                    filteredBookMarkList.add(bookmark);
+                }
+            }
+            BookmarkListAdpater trackListAdapter = new BookmarkListAdpater(activity, SearchFragment.this, filteredBookMarkList);
+            listView.setAdapter(trackListAdapter);
+        }
     }
 
     @Override
@@ -90,22 +136,5 @@ public class SearchFragment extends BookmarkFragment implements AdapterView.OnIt
 
     }
 
-    private void checkSelected(String selected)
-    {
-        if (selected != null) {
-            if (selected.equals("All Types")) {
-                bookmarkFilter.setFilter("all");
-            } else  {
-                bookmarkFilter.setFilter(selected);
-            }
 
-            String filterText = ((SearchView)activity
-                    .findViewById(R.id.searchView)).getQuery().toString();
-
-            if(filterText.length() > 0)
-                bookmarkFilter.filter(filterText);
-            else
-                bookmarkFilter.filter("");
-        }
-    }
 }

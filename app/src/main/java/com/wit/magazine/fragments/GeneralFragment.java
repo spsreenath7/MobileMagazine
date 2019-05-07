@@ -41,8 +41,6 @@ public class GeneralFragment extends TrendingFragement implements Callback<Artic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.v("coffeemate","COFFEE onCreateView START : " );
-
         View v = inflater.inflate(R.layout.fragment_general, container, false);
 //        getActivity().setTitle("Recommedations");
         recyclerView = v.findViewById(R.id.recyclerViewGeneral);
@@ -50,8 +48,6 @@ public class GeneralFragment extends TrendingFragement implements Callback<Artic
         recyclerView.setLayoutManager(new LinearLayoutManager(this.activity));
 
         updateView(app.articleListTab3);
-        Log.v("coffeemate","COFFEE onCreateView END : " );
-
         return v;
     }
 

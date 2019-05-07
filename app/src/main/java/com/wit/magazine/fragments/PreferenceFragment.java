@@ -60,7 +60,7 @@ public class PreferenceFragment extends Fragment implements AdapterView.OnItemSe
     public void onAttach(Context context)
     {
         super.onAttach(context);
-        userpref =app.userPreference;
+
         databaseReference = FirebaseDatabase.getInstance().getReference("UserPreference").child(app.fireBaseUser);
         this.activity = (HomeActivity) context;
 
@@ -69,6 +69,7 @@ public class PreferenceFragment extends Fragment implements AdapterView.OnItemSe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userpref =app.userPreference;
         if(userpref == null){
             new UserPreference(true, false, false, false, false, false, false, "ie", "Ireland", 10);
         }
@@ -144,18 +145,20 @@ public class PreferenceFragment extends Fragment implements AdapterView.OnItemSe
     }
 
     private void updateView() {
+
+                Log.v("magazine","UserPrefValue: "+userpref.toString());
         region.setText(userpref.getCountryname()+", "+userpref.getCountrycode());
 
         all.setChecked(userpref.isAll());
 
-        entertainment.setActivated(userpref.isEntertainment());
-        business.setActivated(userpref.isBusiness());
-        health.setActivated(userpref.isHealth());
-        science.setActivated(userpref.isScience());
-        sports.setActivated(userpref.isSports());
-        technology.setActivated(userpref.isTechnology());
+        entertainment.setChecked(userpref.isEntertainment());
+        business.setChecked(userpref.isBusiness());
+        health.setChecked(userpref.isHealth());
+        science.setChecked(userpref.isScience());
+        sports.setChecked(userpref.isSports());
+        technology.setChecked(userpref.isTechnology());
 
-//        spinner.setSelection(userpref.getArticlecount()/5);
+        spinner.setSelection(userpref.getArticlecount()%5);
     }
 
     @Override

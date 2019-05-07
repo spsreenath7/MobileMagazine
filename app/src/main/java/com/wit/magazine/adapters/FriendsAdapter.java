@@ -25,7 +25,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
     private View.OnClickListener onButtonClickListener;
 
     public FriendsAdapter(Context mCtx, List<UserProfile> friendList, Set<String> friendsSet, View.OnClickListener onClickListener) {
-        Log.v("coffeemate","ARTICLES SIZE : "+String.valueOf(friendList.size()) );
         this.mCtx = mCtx;
         this.friendList = friendList;
         this.friendsSet =friendsSet;

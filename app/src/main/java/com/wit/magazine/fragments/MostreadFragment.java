@@ -36,7 +36,9 @@ public class MostreadFragment extends TrendingFragement implements Callback<Arti
     @Override
     public void getAll() {
         activity.showLoader("Downloading Articles...");
-        callRetrieve = app.articleService.getMostRead(ArticleService.NEWSAPI_KEY,"wired", 5);
+        String catogery = "business,entertainment,general,health,science,sports,technology";
+        callRetrieve = app.articleService.getMostRead(ArticleService.NEWSAPI_KEY,"world", app.userPreference.getArticlecount());
+        Log.v("magazine","Most read call : "+callRetrieve.request().url().toString());
         callRetrieve.enqueue(this);
     }
 

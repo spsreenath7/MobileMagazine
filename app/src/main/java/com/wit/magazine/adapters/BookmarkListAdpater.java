@@ -47,48 +47,5 @@ public class BookmarkListAdpater extends ArrayAdapter<Bookmark> {
         return bookmarkList.get(position);
     }
 
-//    public Filter getFilter(){
-//        return new Filter() {
-//            @Override
-//            protected FilterResults performFiltering(CharSequence prefix) {
-//                Filter.FilterResults results = new Filter.FilterResults();
-//
-//                List<Bookmark> bookmarkListFiltered;
-//                String bookmarkTitle;
-//
-////        if (prefix == null || prefix.length() == 0) {
-////            bookmarkListFiltered = new ArrayList<>();
-////            if (filterText.equals("all")) {
-////                results.values = bookmarkList;
-////                results.count = bookmarkList.size();
-////            }
-////        }else {
-//                String prefixString = prefix.toString().toLowerCase();
-//                bookmarkListFiltered = new ArrayList<>();
-//
-//
-//                for (Bookmark bookmark : bookmarkFullList) {
-//                    bookmarkTitle = bookmark.getTitle().toLowerCase();
-//                    if (bookmarkTitle.contains(prefixString)) {
-//                        if (filterText.equals("all")) {
-//                            bookmarkListFiltered.add(bookmark);
-//                        }
-////                    else if (c.favourite) {
-////                        newCoffees.add(c);
-////                    }
-//                    }
-//                }
-//                results.values = bookmarkListFiltered;
-//                results.count = bookmarkListFiltered.size();
-////            }
-//                return results;
-//            }
-//
-//            @Override
-//            protected void publishResults(CharSequence constraint, FilterResults results) {
-//
-//            }
-//        }
-//    }
 
 }

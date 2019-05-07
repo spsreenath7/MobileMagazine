@@ -7,7 +7,8 @@
     <color name="colorFontWhite">#FFFFFF</color>
     <color name="colorFontOffWhite">#F7F7F7</color>
     <color name="colorFontBlack">#000000</color>
-    <color name="colorMultiDelete">#A6C4E6</color>
+    <color name="colorMultipleDelete">#FCBDBD</color>
+    <color name="colorMultiDelete">#FC7A7A</color>
     <color name="colorFontRed">#fe0000</color>
     <color name="splash">#21ade9</color>
     <color name="colorCardShadow">#1616c8</color>

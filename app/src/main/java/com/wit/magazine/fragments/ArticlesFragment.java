@@ -53,7 +53,7 @@ public class ArticlesFragment extends Fragment {
 
     public void onResume() {
         super.onResume();
-//        getAllCoffees();
+//        getAllfees();
 //        updateView();
     }
 

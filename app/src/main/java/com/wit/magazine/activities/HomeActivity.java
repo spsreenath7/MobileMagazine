@@ -13,11 +13,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,16 +29,13 @@ import com.wit.magazine.fragments.ArticlePageFragment;
 import com.wit.magazine.fragments.ArticlesFragment;
 import com.wit.magazine.fragments.BookmarkFragment;
 import com.wit.magazine.fragments.FindfriendsFragment;
-import com.wit.magazine.fragments.MapsFragment;
 import com.wit.magazine.fragments.PreferenceFragment;
 import com.wit.magazine.fragments.ProfileFragment;
 import com.wit.magazine.fragments.SearchFragment;
 import com.wit.magazine.fragments.ShareDialogFragment;
 import com.wit.magazine.fragments.SocialFeedFragment;
-import com.wit.magazine.fragments.WalletFragment;
 import com.wit.magazine.main.MagazineApp;
 import com.wit.magazine.models.UserPreference;
-import com.wit.magazine.models.UserProfile;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         ArticlePageFragment.ArticlePageInteractionListener, ShareDialogFragment.ShareDialogListener {
@@ -127,7 +122,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         //ft.addToBackStack(null);
         ft.commit();
 
-        //this.setupCoffees();
+
         createLoader();
         dbReference = FirebaseDatabase.getInstance().getReference("FriendLists").child(app.fireBaseUser);
         showLoader("please wait");
@@ -160,7 +155,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_home) {
             fragment = ArticlesFragment.newInstance();
-//            ((CoffeeFragment)fragment).favourites = false;
+
             startActivity(new Intent(this, HomeActivity.class));
 
         }else if (id == R.id.nav_bookmarks) {
@@ -183,6 +178,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         }  else if (id == R.id.nav_search) {
             fragment = FindfriendsFragment.newInstance();
+            ft.replace(R.id.homeFrame, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+
+        }else if (id == R.id.nav_search_bookmarks) {
+            fragment = SearchFragment.newInstance();
             ft.replace(R.id.homeFrame, fragment);
             ft.addToBackStack(null);
             ft.commit();
@@ -266,8 +267,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         loaderBuilder.setView(R.layout.loading);
         loader = loaderBuilder.create();
         loader.setTitle(R.string.appDisplayName);
-        //loader.setMessage("Downloading Coffees...");
-//        loader.setIcon(R.drawable.favourites_72);
     }
 
     public void showLoader(String message) {

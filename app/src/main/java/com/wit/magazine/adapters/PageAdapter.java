@@ -6,10 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-//import ie.cm.fragments.ActsFragment;
-//import ie.cm.fragments.CoffeeFragment;
-//import ie.cm.fragments.DataFragment;
-//import ie.cm.fragments.TabtestFragment;
 import com.wit.magazine.R;
 import com.wit.magazine.fragments.GeneralFragment;
 import com.wit.magazine.fragments.MostreadFragment;

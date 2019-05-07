@@ -15,7 +15,7 @@ public interface ArticleService {
 //    @GET("top-headlines")
 //    Call<ArticleWrapper> getAllTrending(@Query("apiKey") String apiKey, @Query("pageSize") int pageSize, @Query("sources") String sources);
     @GET("top-headlines")
-    Call<ArticleWrapper> getMostRead(@Query("apiKey") String apiKey, @Query("sources") String sources, @Query("pageSize") int pageSize);
+    Call<ArticleWrapper> getMostRead(@Query("apiKey") String apiKey, @Query("q") String sources, @Query("pageSize") int pageSize);
 
     @GET("top-headlines")
     Call<ArticleWrapper> getGenral(@Query("apiKey") String apiKey, @Query("sources") String sources, @Query("pageSize") int pageSize);

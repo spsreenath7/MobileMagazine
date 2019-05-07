@@ -108,4 +108,20 @@ public class UserPreference {
     public void setArticlecount(int articlecount) {
         this.articlecount = articlecount;
     }
+
+    @Override
+    public String toString() {
+        return "UserPreference{" +
+                "all=" + all +
+                ", business=" + business +
+                ", entertainment=" + entertainment +
+                ", science=" + science +
+                ", health=" + health +
+                ", sports=" + sports +
+                ", technology=" + technology +
+                ", countrycode='" + countrycode + '\'' +
+                ", countryname='" + countryname + '\'' +
+                ", articlecount=" + articlecount +
+                '}';
+    }
 }
