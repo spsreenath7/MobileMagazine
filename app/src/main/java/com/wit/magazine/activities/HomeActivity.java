@@ -31,12 +31,15 @@ import com.wit.magazine.fragments.ArticlePageFragment;
 import com.wit.magazine.fragments.ArticlesFragment;
 import com.wit.magazine.fragments.BookmarkFragment;
 import com.wit.magazine.fragments.FindfriendsFragment;
+import com.wit.magazine.fragments.MapsFragment;
+import com.wit.magazine.fragments.PreferenceFragment;
 import com.wit.magazine.fragments.ProfileFragment;
 import com.wit.magazine.fragments.SearchFragment;
 import com.wit.magazine.fragments.ShareDialogFragment;
 import com.wit.magazine.fragments.SocialFeedFragment;
 import com.wit.magazine.fragments.WalletFragment;
 import com.wit.magazine.main.MagazineApp;
+import com.wit.magazine.models.UserPreference;
 import com.wit.magazine.models.UserProfile;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -56,15 +59,38 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthStateListener);
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         app = (MagazineApp) getApplication();
         mAuth = FirebaseAuth.getInstance();
         app.fireBaseUser =mAuth.getCurrentUser().getUid();
         app.fireBaseUserName = mAuth.getCurrentUser().getDisplayName();
+        app.fireBaseUserEmail = mAuth.getCurrentUser().getEmail();
+        app.userPreference =new UserPreference(true, false, false, false, false, false, false, "ie", "Ireland", 10);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("UserPreference").child(app.fireBaseUser);
+
+//        showLoader("downloading user preferences..");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                UserPreference dbUserPref = dataSnapshot.getValue(UserPreference.class);
+                if(dbUserPref != null){
+                    app.userPreference =dbUserPref;
+                }
+//                hideLoader();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
 
         setContentView(R.layout.home);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -92,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         userName.setText(app.fireBaseUserName);
 
         TextView userMail = navigationView.getHeaderView(0).findViewById(R.id.email);
-        userMail.setText(mAuth.getCurrentUser().getEmail());
+        userMail.setText(app.fireBaseUserEmail);
 
         ft = getSupportFragmentManager().beginTransaction();
 
@@ -144,7 +170,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             ft.commit();
 
         }else if (id == R.id.nav_prefrences) {
-            fragment = BookmarkFragment.newInstance();
+            fragment = PreferenceFragment.newInstance();
             ft.replace(R.id.homeFrame, fragment);
             ft.addToBackStack(null);
             ft.commit();
@@ -161,6 +187,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             ft.addToBackStack(null);
             ft.commit();
 
+        }else if (id == R.id.nav_map) {
+//            fragment = MapsFragment.newInstance();
+//            ft.replace(R.id.homeFrame, fragment);
+//            ft.addToBackStack(null);
+//            ft.commit();
+//            Intent intent = ;
+            startActivity(new Intent(this, MapActivity.class));
         } else if (id == R.id.nav_info) {
             fragment = ProfileFragment.newInstance();
             ft.replace(R.id.homeFrame, fragment);

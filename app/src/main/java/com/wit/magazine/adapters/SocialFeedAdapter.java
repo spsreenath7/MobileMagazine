@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.wit.magazine.R;
 import com.wit.magazine.models.SharedArticle;
 import com.wit.magazine.models.UserProfile;
@@ -45,7 +48,12 @@ public class SocialFeedAdapter extends RecyclerView.Adapter<SocialFeedAdapter.Sh
         friendViewHolder.textViewUsername.setText(article.getUsername());
         friendViewHolder.textViewSource.setText(article.getSource());
         friendViewHolder.textViewTitle.setText(article.getTitle());
-
+        friendViewHolder.textViewCaption.setText(article.getCaption());
+        Glide.with(mCtx)
+                .load(article.getUrlToImage())
+                .apply(new RequestOptions().placeholder(R.drawable.loginbgimg).error(R.drawable.newslogo))
+//                .error(R.drawable.youtube_logo)
+                .into(friendViewHolder.imageViewArticle);
         friendViewHolder.textViewTitle.setTag(article);
         friendViewHolder.textViewTitle.setOnClickListener(this.onClickListener);
 
@@ -63,7 +71,8 @@ public class SocialFeedAdapter extends RecyclerView.Adapter<SocialFeedAdapter.Sh
 
     public class ShareViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewUsername, textViewSource, textViewTitle;
+        TextView textViewUsername, textViewSource, textViewTitle, textViewCaption;
+        ImageView imageViewArticle;
         RecyclerView feedRecyclerView;
         Button follow;
 
@@ -73,6 +82,8 @@ public class SocialFeedAdapter extends RecyclerView.Adapter<SocialFeedAdapter.Sh
             textViewUsername = itemView.findViewById(R.id.textViewSharedby);
             textViewSource = itemView.findViewById(R.id.textViewArticlesource);
             textViewTitle = itemView.findViewById(R.id.textViewArticleTitle);
+            textViewCaption = itemView.findViewById(R.id.textViewCaption);
+            imageViewArticle = itemView.findViewById(R.id.imageViewArticle);
             feedRecyclerView = itemView.findViewById(R.id.feedRecyclerView);
 //            follow = itemView.findViewById(R.id.buttonConnect);
         }

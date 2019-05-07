@@ -57,7 +57,7 @@ public class SearchFragment extends BookmarkFragment implements AdapterView.OnIt
         spinner.setOnItemSelectedListener(this);
 
         searchView = v.findViewById(R.id.searchView);
-        searchView.setQueryHint("Search your Coffees Here");
+        searchView.setQueryHint("Search bookmarks");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 

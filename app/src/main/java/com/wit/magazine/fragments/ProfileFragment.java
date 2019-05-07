@@ -20,7 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,6 +49,7 @@ import com.wit.magazine.models.Bookmark;
 import com.wit.magazine.models.UserProfile;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import static android.app.Activity.RESULT_OK;
 import static com.wit.magazine.activities.HomeActivity.app;
@@ -119,7 +124,7 @@ public class ProfileFragment extends Fragment {
         username = (EditText) v.findViewById(R.id.editDisplayname);
         profilePic = (ImageView) v.findViewById(R.id.imageViewprofile);
         save = (Button) v.findViewById(R.id.buttonSave);
-        loadUserInfo();
+//        loadUserInfo();
 
 
         profilePic.setOnClickListener(new View.OnClickListener() {
@@ -144,11 +149,7 @@ public class ProfileFragment extends Fragment {
         if(userProfile != null){
             email.setText(userProfile.getEmail());
             username.setText(userProfile.getUsername());
-            Glide.with(this.activity)
-                    .load(userProfile.getProfilephotoURL())
-                    .apply(new RequestOptions().placeholder(R.drawable.userimage).error(R.drawable.userimage))
-//                .error(R.drawable.youtube_logo)
-                    .into(profilePic);
+
         }else {
             email.setText(firebaseUser.getEmail());
             username.setText(firebaseUser.getDisplayName());
@@ -173,7 +174,7 @@ public class ProfileFragment extends Fragment {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
                 profilePic.setImageBitmap(bitmap);
-                downloadURL =uploadImageToFirebase();
+                uploadImageToFirebase();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -192,13 +193,15 @@ public class ProfileFragment extends Fragment {
         DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("UserProfile")
                 .child(app.fireBaseUser);
         UserProfile userProfile = new UserProfile(app.fireBaseUser, displayName, firebaseUser.getEmail(), downloadURL);
+        Log.v("Magazine", "uploadImageToFirebase before return "+userProfile.toString());
         dbReference.setValue(userProfile);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null && profilePicURL != null) {
+//        user.set
+        if (user != null ) {
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayName)
-                    .setPhotoUri(Uri.parse(profilePicURL)).build();
+                    .build();
             user.updateProfile(profile)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -216,47 +219,80 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    private String uploadImageToFirebase() {
+    private void uploadImageToFirebase() {
 //        String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String uploadRef = "profilepics/" + System.currentTimeMillis() + ".jpg";
+
         final StorageReference profilePicRef =
-                FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".jpg");
+                FirebaseStorage.getInstance().getReference(uploadRef);
         final UploadTask uploadTask = profilePicRef.putFile(imageUri);
-        final String[] downloadUrl = new String[1];
+        final String[] downloadUrlArr = new String[1];
         if (imageUri != null) {
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+//            progressBar.setVisibility(View.VISIBLE);
+            profilePicRef.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful()) {
-                                throw task.getException();
-
-                            }
-                            // Continue with the task to get the download URL
-                            return profilePicRef.getDownloadUrl();
-
+                        public void onSuccess(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+//                            progressBar.setVisibility(View.GONE);
+//                            downloadURL = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                            downloadURL= uploadRef;
                         }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
                         @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                downloadUrl[0] = task.getResult().toString();
-
-
-                            }
+                        public void onFailure(@NonNull Exception e) {
+//                            progressBar.setVisibility(View.GONE);
+//                            Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(), "Image upload failed", Toast.LENGTH_LONG).show();
-                }
-            });
-
-
         }
-        return downloadUrl[0];
+//        if (imageUri != null) {
+//            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+//                        @Override
+//                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+//                            if (!task.isSuccessful()) {
+//                                throw task.getException();
+//
+//                            }
+//                            // Continue with the task to get the download URL
+//                            return profilePicRef.getDownloadUrl();
+//
+//                        }
+//                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Uri> task) {
+//                            if (task.isSuccessful()) {
+//                                downloadUrlArr[0] = task.getResult().toString();
+//                                Toast.makeText(getContext(), "Image upload done", Toast.LENGTH_LONG).show();
+//
+//
+//                            }
+//                        }
+//                    });
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(getContext(), "Image upload failed", Toast.LENGTH_LONG).show();
+//                }
+//            });
+//
+//
+//        }
+//        Log.v("Magazine", "uploadImageToFirebase before retur");
+//        return downloadUrlArr[0];
     }
+
+//    @GlideModule
+//    public class MyAppGlideModule extends AppGlideModule {
+//        @Override
+//        public void registerComponents(Context context, Glide glide, Registry registry) {
+//            // Register FirebaseImageLoader to handle StorageReference
+//            registry.append(StorageReference.class, InputStream.class,
+//                    new FirebaseImageLoader.Factory());
+//        }
+//    }
 }

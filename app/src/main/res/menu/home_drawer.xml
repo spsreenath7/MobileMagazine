@@ -27,6 +27,10 @@
     <item android:title="Communicate &amp; Locate">
         <menu>
             <item
+                android:id="@+id/nav_map"
+                android:icon="@drawable/ic_search_black"
+                android:title="View on Map" />
+            <item
                 android:id="@+id/nav_info"
                 android:icon="@drawable/ic_perm_profile"
                 android:title="My Profile" />

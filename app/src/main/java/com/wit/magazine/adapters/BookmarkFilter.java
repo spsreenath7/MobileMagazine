@@ -49,9 +49,6 @@ public class BookmarkFilter extends Filter {
                         if (filterText.equals("all")) {
                             bookmarkListFiltered.add(bookmark);
                         }
-//                    else if (c.favourite) {
-//                        newCoffees.add(c);
-//                    }
                     }
                 }
                 results.values = bookmarkListFiltered;
@@ -74,7 +71,6 @@ public class BookmarkFilter extends Filter {
             adapter.notifyDataSetInvalidated();
             adapter.bookmarkList = this.bookmarkFullList;
         }
-//        Log.v("coffeemate", "publishResults : " + adapter.coffeeList);
     }
 }
 

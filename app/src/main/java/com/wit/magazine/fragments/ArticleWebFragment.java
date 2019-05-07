@@ -31,7 +31,6 @@ public class ArticleWebFragment extends Fragment {
         webView=(WebView) v.findViewById(R.id.articleWebView);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(getArguments().getString("url"));
-//        Log.v("coffeemate", "Something Went Wrong : " + t.getMessage());
         return v;
     }
 }

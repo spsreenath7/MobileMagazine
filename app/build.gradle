@@ -51,6 +51,10 @@ dependencies {
 
 //    implementation 'com.firebaseui:firebase-ui-database:4.3.2'
     implementation 'com.firebaseui:firebase-ui-database:4.1.0'
+    implementation 'com.firebaseui:firebase-ui-storage:4.1.0'
+
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
 
 //    implementation 'com.google.android.gms:play-services-plus:10.2.4'
 ////    implementation 'com.google.android.gms:play-services-auth:8.4.0'

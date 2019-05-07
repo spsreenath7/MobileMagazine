@@ -15,10 +15,12 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Application;
+import android.location.Location;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.wit.magazine.models.UserPreference;
 
 public class MagazineApp extends Application
 {
@@ -29,9 +31,13 @@ public class MagazineApp extends Application
     public List <Article>  articleListTab3 = new ArrayList<Article>();
     public String fireBaseUser;
     public String fireBaseUserName;
+    public String fireBaseUserEmail;
     public Set<String> friendsSet = new HashSet<>();
+    public UserPreference userPreference;
     public ArticleService articleService;
     public String articleServiceURL = "https://newsapi.org/v2/";
+
+    public Location mCurrentLocation;
 
     @Override
     public void onCreate() {

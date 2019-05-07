@@ -33,7 +33,6 @@ public class BookmarkItem {
         ((TextView) view.findViewById(R.id.textViewSource)).setText(bookmark.getSource());
         ((TextView) view.findViewById(R.id.textViewTagtext)).setText(bookmark.getTag());
         ((TextView) view.findViewById(R.id.textViewCatogery)).setText(bookmark.getCatogery());
-//        updateControls(coffee);
 
         ImageView imgDelete = view.findViewById(R.id.imageViewDeleteBookmark);
         imgDelete.setTag(bookmark);

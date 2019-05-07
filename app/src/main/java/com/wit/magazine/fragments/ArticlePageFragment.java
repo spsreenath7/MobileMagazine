@@ -109,6 +109,7 @@ public class ArticlePageFragment extends Fragment implements AdapterView.OnItemS
 
         Bookmark bookmark = new Bookmark(id, source, title, url, tagtext, catogery);
         databaseBookmarkReference.child(id).setValue(bookmark);
+        Toast.makeText(getActivity(),"Bookmark saved sucessfully !! ",Toast.LENGTH_LONG).show();
     }
 
 
@@ -151,7 +152,7 @@ public class ArticlePageFragment extends Fragment implements AdapterView.OnItemS
         source = getArguments().getString("Source");
         title = getArguments().getString("Title");
         url = getArguments().getString("url");
-        urlToImage = getArguments().getString("urlToImage");
+        urlToImage = getArguments().getString("imageURL");
 
         userid = app.fireBaseUser;
         username = app.fireBaseUserName;

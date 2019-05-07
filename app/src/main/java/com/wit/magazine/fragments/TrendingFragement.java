@@ -73,7 +73,7 @@ public class TrendingFragement extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.v("coffeemate","COFFEE onCreateView START : " );
+
 
         View v = inflater.inflate(R.layout.fragment_trending, container, false);
         getActivity().setTitle("Recommedations");
@@ -82,7 +82,7 @@ public class TrendingFragement extends Fragment implements View.OnClickListener,
         recyclerView.setLayoutManager(new LinearLayoutManager(this.activity));
 
         updateView(app.articleList);
-        Log.v("coffeemate","COFFEE onCreateView END : " );
+
 
         return v;
     }

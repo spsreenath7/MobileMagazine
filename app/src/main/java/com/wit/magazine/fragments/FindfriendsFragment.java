@@ -75,7 +75,9 @@ public class FindfriendsFragment extends Fragment implements View.OnClickListene
                 Log.v("magazine","Search text in onQueryTextChange : "+dataSnapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     UserProfile user = postSnapshot.getValue(UserProfile.class);
-                    userList.add(user);
+                    if(user.getUserid() != app.fireBaseUser){
+                        userList.add(user);
+                    }
                 }
                 FriendsAdapter friendsAdapter = new FriendsAdapter(getContext(), userList,app.friendsSet, FindfriendsFragment.this);
                 mResultList.setAdapter(friendsAdapter);
