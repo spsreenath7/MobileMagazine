@@ -74,7 +74,8 @@ This option UI is a ConstraintLayout comprises of
 +A dropdown box to fix the count of articles per page and
 +A image button that opens a Map Activity where users can fix the preffered region.
 
-![][image2] ![][image3]
+![][image2] 
+![][image3]
 
 ### Bookmark and share articles
 Whenever a user clicks an article or bookmark, it renders a new fragment in the home activity. This contains,
@@ -86,13 +87,16 @@ Whenever a user clicks an article or bookmark, it renders a new fragment in the 
 
 ### Connect friends, social feed and articles page
 The above features are displayed using RecylerView. Also each of the view holders are equipped with buttons and are clickable with listerns attached. This make the recylcer view interactive.
-![][image4] ![][image6]
+
+![][image4] 
+![][image6]
 
 Artical page is displayed using tab layout each tab renders data using seperate API calls based on the user preference saved.
 ![][image7]
 
 ### Bookmark list and explore bookmark
 List view is used to build the bookmarks list. Also there is a seperate provision for searching the bookmarks and filtering them based on catogery.
+
 ![][image8]
 
 
