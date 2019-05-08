@@ -114,12 +114,12 @@ List view is used to build the bookmarks list. Also there is a seperate provisio
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
 [model]: ./images/datamodel.PNG
-[comp]: ./images/compdesign.PNG
-[image1]: ./images/img1.JPG
-[image2]: ./images/img2.JPG
-[image3]: ./images/img3.JPG
-[image4]: ./images/img4.JPG
-[image5]: ./images/img5.JPG
-[image6]: ./images/img6.JPG
-[image7]: ./images/img7.JPG
-[image8]: ./images/img8.JPG
+[comp]: ./images/compdesign.png
+[image1]: ./images/img1.jpg
+[image2]: ./images/img2.jpg
+[image3]: ./images/img3.jpg
+[image4]: ./images/img4.jpg
+[image5]: ./images/img5.jpg
+[image6]: ./images/img6.jpg
+[image7]: ./images/img7.jpg
+[image8]: ./images/img8.jpg
