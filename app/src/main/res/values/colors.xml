@@ -12,4 +12,7 @@
     <color name="colorFontRed">#fe0000</color>
     <color name="splash">#21ade9</color>
     <color name="colorCardShadow">#1616c8</color>
+
+    <color name="colorFollow">#23000000</color>
+    <color name="colorFollowing">#FCBDBD</color>
 </resources>

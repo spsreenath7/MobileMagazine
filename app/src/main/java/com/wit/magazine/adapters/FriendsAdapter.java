@@ -46,13 +46,15 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
 
         friendViewHolder.textViewUsername.setText(friend.getUsername());
         friendViewHolder.textViewEmail.setText(friend.getEmail());
-
+        friendViewHolder.follow.setTag(friend.getUserid());
+        friendViewHolder.follow.setOnClickListener(this.onButtonClickListener);
         if(!friendsSet.contains(friend.getUserid())){
-            friendViewHolder.follow.setTag(friend.getUserid());
-            friendViewHolder.follow.setOnClickListener(this.onButtonClickListener);
+            friendViewHolder.follow.setText("Follow");
+            friendViewHolder.follow.setBackgroundColor(R.color.colorFollow);
+
         }else {
             friendViewHolder.follow.setText("Following");
-            friendViewHolder.follow.setBackgroundColor(R.color.colorAccent);
+            friendViewHolder.follow.setBackgroundColor(R.color.colorFollowing);
         }
 
     }

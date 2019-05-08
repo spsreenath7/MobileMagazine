@@ -1,5 +1,6 @@
 package com.wit.magazine.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -145,6 +146,7 @@ public class FindfriendsFragment extends Fragment implements View.OnClickListene
         return v;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View v) {
         if (v.getTag() instanceof String) {
@@ -158,9 +160,19 @@ public class FindfriendsFragment extends Fragment implements View.OnClickListene
                     .child(app.fireBaseUser);
 //            dbReference.push();
 //            dbReference.setValue(new ArrayList<String>().add(followedUserid));
-            dbReference.child(followedUserid).setValue(followedUserid);
-            ((Button)v.findViewById(R.id.buttonConnect)).setText("Following");
-            ((Button)v.findViewById(R.id.buttonConnect)).setClickable(false);
+            if(app.friendsSet.contains(followedUserid)){
+                dbReference.child(followedUserid).removeValue();
+                app.friendsSet.remove(followedUserid);
+                ((Button)v.findViewById(R.id.buttonConnect)).setText("Follow");
+                ((Button)v.findViewById(R.id.buttonConnect)).setBackgroundColor(R.color.colorFollow);
+
+            }else {
+                dbReference.child(followedUserid).setValue(followedUserid);
+                ((Button)v.findViewById(R.id.buttonConnect)).setText("Following");
+                ((Button)v.findViewById(R.id.buttonConnect)).setBackgroundColor(R.color.colorFollowing);
+            }
+
+//            ((Button)v.findViewById(R.id.buttonConnect)).setClickable(false);
 
         }
     }

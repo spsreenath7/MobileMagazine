@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wit.magazine.R;
+import com.wit.magazine.adapters.SocialFeedAdapter;
 import com.wit.magazine.fragments.ArticlePageFragment;
 import com.wit.magazine.fragments.ArticlesFragment;
 import com.wit.magazine.fragments.BookmarkFragment;
@@ -66,10 +67,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         app.fireBaseUser =mAuth.getCurrentUser().getUid();
         app.fireBaseUserName = mAuth.getCurrentUser().getDisplayName();
         app.fireBaseUserEmail = mAuth.getCurrentUser().getEmail();
-        app.userPreference =new UserPreference(true, false, false, false, false, false, false, "ie", "Ireland", 10);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("UserPreference").child(app.fireBaseUser);
+        app.userPreference =new UserPreference(true, false, false, false, false, false, false, "ie", "Ireland", 10);
 
-//        showLoader("downloading user preferences..");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -78,7 +78,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 if(dbUserPref != null){
                     app.userPreference =dbUserPref;
                 }
-//                hideLoader();
+//
+//                ft = getSupportFragmentManager().beginTransaction();
+//
+//                ArticlesFragment fragment = ArticlesFragment.newInstance();
+//                ft.replace(R.id.homeFrame, fragment);
+//                //ft.addToBackStack(null);
+//                ft.commit();
+
             }
 
             @Override
@@ -86,7 +93,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
+        while(app.userPreference == null){
+            continue;
+        }
         setContentView(R.layout.home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -117,13 +126,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         ft = getSupportFragmentManager().beginTransaction();
 
-        ArticlesFragment fragment = ArticlesFragment.newInstance();
+//        ArticlesFragment fragment = ArticlesFragment.newInstance();
+        SocialFeedFragment fragment = SocialFeedFragment.newInstance();
         ft.replace(R.id.homeFrame, fragment);
         //ft.addToBackStack(null);
         ft.commit();
 
 
         createLoader();
+
         dbReference = FirebaseDatabase.getInstance().getReference("FriendLists").child(app.fireBaseUser);
         showLoader("please wait");
         dbReference.addValueEventListener(new ValueEventListener() {
@@ -154,9 +165,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ft = getSupportFragmentManager().beginTransaction();
 
         if (id == R.id.nav_home) {
-            fragment = ArticlesFragment.newInstance();
-
-            startActivity(new Intent(this, HomeActivity.class));
+            fragment = SocialFeedFragment.newInstance();
+            ft.replace(R.id.homeFrame, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+//            startActivity(new Intent(this, HomeActivity.class));
 
         }else if (id == R.id.nav_bookmarks) {
             fragment = BookmarkFragment.newInstance();
@@ -170,8 +183,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             ft.addToBackStack(null);
             ft.commit();
 
-        } else if (id == R.id.nav_feed) {
-            fragment = SocialFeedFragment.newInstance();
+        } else if (id == R.id.nav_articles) {
+            fragment = ArticlesFragment.newInstance();
             ft.replace(R.id.homeFrame, fragment);
             ft.addToBackStack(null);
             ft.commit();
